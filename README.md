@@ -1,4 +1,4 @@
-# TaskTrain
+# Buggie Tracker
 
 ![GitHub issues](https://img.shields.io/github/issues/ayub-ian/buggie-tracker) ![GitHub contributors](https://img.shields.io/github/contributors/ayub-ian/buggie-tracker?color=green) ![GitHub repo size](https://img.shields.io/github/repo-size/ayub-ian/buggie-tracker?color=violet)
 
