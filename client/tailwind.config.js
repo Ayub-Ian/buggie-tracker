@@ -10,7 +10,11 @@ module.exports = {
     },
     extend: {
       height:{
-        '778': '778px'
+        '778': '778px',
+        
+      },
+      width: {
+        '456': '456px'
       },
       colors: {
         'accent-gray': "#9b9b9b",

@@ -11,7 +11,7 @@ function Login() {
             <Input type="text" label="Login id" placeholder="Email or username" />
             <Input type="password" label="Password" placeholder="Password" />
             <div className='tw-mt-1 tw-float-right'>
-                <Link className=' tw-text-sm tw-text-accent-orange '> Forgot password?</Link>
+                <Link to="/forgot_password" className=' tw-text-sm tw-text-accent-orange '> Forgot password?</Link>
             </div>
             <input type="submit" className=' tw-bg-accent-primary tw-w-full tw-py-2 tw-mt-6 tw-rounded-lg tw-font-medium tw-transition-all tw-duration-200 hover:tw-bg-accent-green hover:tw-scale-95 hover:tw-text-white' value='Log in'/>
         </form>
