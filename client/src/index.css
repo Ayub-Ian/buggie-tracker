@@ -48,3 +48,51 @@ code {
   border-color: #FF7A50;
   background: #fff;
 }
+#topbar a {
+  position: relative;
+  transition: all ease 200ms;
+}
+#topbar a.active {
+  color: #1ABC9C;
+  font-weight: 600;
+}
+
+#topbar a.active:after {
+  content: '';
+  background-color: #1ABC9C;
+  position: absolute;
+  display: flex;
+  padding: 2px;
+  width: 100%;
+  bottom: -.7rem;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  z-index: 1;
+  display: none;
+  position: absolute;
+  
+}
+
+.dropdown-content a {
+  transition: all ease 200ms;
+}
+.dropdown-content > span{
+  transition: all ease 200ms;
+  cursor: pointer;
+}
+.dropdown-content > span:hover {
+  background-color: #fca49a;
+  border-radius: 8px; padding-left: 4px; padding-top: 4px;
+  margin-top: 4px;
+}
+
+.dropdown:hover .dropdown-content {display: flex; margin-top: .1rem;}
+.dropdown-content a:hover {background-color: #ddd; border: none; border-radius: 8px; padding-left: 4px; padding-top: 4px; }

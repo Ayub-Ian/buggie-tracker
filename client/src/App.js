@@ -1,13 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./features/auth/ForgotPassword";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 import ResetPassword from "./features/auth/ResetPassword";
+import Dashboard from "./features/dashboard";
+import Issues from "./features/issues";
+import Profile from "./features/profile";
 import Projects from "./features/projects/Projects";
 import Protected from "./utils/Protected";
-
 
 function App() {
   return (
@@ -18,11 +20,38 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="forgot_password" element={<ForgotPassword />} />
           <Route path="reset_password/:token" element={<ResetPassword />} />
-          <Route path="projects" element={
-            <Protected>
-              <Projects/>
-            </Protected>
-          } />
+          <Route
+            path="projects"
+            element={
+              <Protected>
+                <Projects />
+              </Protected>
+            }
+          />
+          <Route
+            path="issues"
+            element={
+              <Protected>
+                <Issues />
+              </Protected>
+            }
+          />
+          <Route
+            path="dashboard"
+            element={
+              <Protected>
+                <Dashboard />
+              </Protected>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <Protected>
+                <Profile />
+              </Protected>
+            }
+          />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/navbar";
 import { isUserLoggedIn } from "./auth";
 
 function Protected({ children }) {
@@ -18,7 +19,16 @@ function Protected({ children }) {
     checkUserToken();
   }, [isLoggedIn]);
 
-  return <React.Fragment>{isLoggedIn ? children : null}</React.Fragment>;
+  return (
+    <React.Fragment>
+      {isLoggedIn ? (
+        <div>
+          <Navbar />
+          {children}
+        </div>
+      ) : null}
+    </React.Fragment>
+  );
 }
 
 export default Protected;
