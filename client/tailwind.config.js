@@ -21,7 +21,8 @@ module.exports = {
         'accent-smoke': '#F4F6F7',
         'accent-primary': '#E5EDEA',
         'accent-green': '#1ABC9C',
-        'accent-orange': '#FF7A50'
+        'accent-orange': '#FF7A50',
+        'accent-red': '#F50062'
       }
     },
   },

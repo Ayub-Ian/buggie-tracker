@@ -8,6 +8,7 @@ import ResetPassword from "./features/auth/ResetPassword";
 import Dashboard from "./features/dashboard";
 import Issues from "./features/issues";
 import Profile from "./features/profile";
+import ProjectDetail from "./features/projects/ProjectDetail";
 import Projects from "./features/projects/Projects";
 import Protected from "./utils/Protected";
 
@@ -25,6 +26,14 @@ function App() {
             element={
               <Protected>
                 <Projects />
+              </Protected>
+            }
+          />
+                    <Route
+            path="/project/:id"
+            element={
+              <Protected>
+                <ProjectDetail />
               </Protected>
             }
           />
