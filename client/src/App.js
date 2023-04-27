@@ -7,6 +7,7 @@ import Register from "./features/auth/Register";
 import ResetPassword from "./features/auth/ResetPassword";
 import Dashboard from "./features/dashboard";
 import Issues from "./features/issues";
+import IssueDetail from "./features/issues/IssueDetail";
 import Profile from "./features/profile";
 import ProjectDetail from "./features/projects/ProjectDetail";
 import Projects from "./features/projects/Projects";
@@ -42,6 +43,14 @@ function App() {
             element={
               <Protected>
                 <Issues />
+              </Protected>
+            }
+          />
+          <Route
+            path="issue/:id"
+            element={
+              <Protected>
+                <IssueDetail />
               </Protected>
             }
           />

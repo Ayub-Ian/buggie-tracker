@@ -2,7 +2,7 @@ import React from 'react'
 
 function Loader() {
   return (
-    <div className=" tw-bg-indigo-500 tw-w-full tw-py-2 tw-mt-6 tw-rounded-lg tw-font-medium tw-flex tw-justify-center tw-items-center">
+    <div className=" tw-bg-indigo-500 tw-w-full tw-py-2 tw-mt-6 tw-rounded-lg tw-font-medium tw-flex tw-justify-center tw-items-center ">
     <svg
       aria-hidden="true"
       role="status"

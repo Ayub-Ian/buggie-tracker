@@ -23,10 +23,18 @@ const logout = () => {
     return instance().delete("/logout")
 }
 
+const getAllProjects = () => {
+    return instance().get("/projects")
+}
+
+const createProject = (data) => {
+    return instance().post("/projects", data)
+}
+
 
 
 const client = {
-    register, login, logout
+    register, login, logout, getAllProjects, createProject
 }
 
 export default client

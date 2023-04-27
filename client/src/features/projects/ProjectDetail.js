@@ -83,7 +83,7 @@ function ProjectDetail() {
       </div>
       <div className=" tw-mt-5">
         <Link
-          to="/project/1"
+          to="/issue/1"
           className="tw-group tw-block issue--item  tw-mx-auto tw-rounded-lg tw-p-6 tw-bg-white tw-ring-1 tw-ring-slate-900/5 tw-shadow-lg tw-space-y-2 hover:tw-bg-sky-500 hover:tw-ring-sky-500"
         >
           <div className="tw-flex tw-items-center tw-gap-2 ">

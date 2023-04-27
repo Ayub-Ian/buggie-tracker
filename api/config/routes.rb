@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :projects
-  resources :issues
+  resources :projects, only: [:create, :show, :index, :update, :destroy]
+  resources :issues, only: [:create, :show, :index, :update, :destroy]
   resources :users, only: [:create, :show, :index, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
