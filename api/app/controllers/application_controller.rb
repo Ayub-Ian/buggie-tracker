@@ -20,4 +20,9 @@ class ApplicationController < ActionController::API
           render json: { errors: e.message }, status: :unauthorized
         end
     end
+
+    # GET logged in user
+    def current_user
+      user ||= User.find_by(id: session[:uid])
+    end
 end

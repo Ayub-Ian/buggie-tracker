@@ -30,6 +30,11 @@ class SessionsController < ApplicationController
         app_response(message: 'Logout successful')
     end
 
+    # GET /my-profile
+    def my_profile 
+        render json: current_user
+    end
+
     private
 
     def login_params

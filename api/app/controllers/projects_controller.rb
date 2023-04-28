@@ -1,45 +1,48 @@
 class ProjectsController < ApplicationController
-    before_action :authorize_request
-    before_action :find_project, only: [:show, :update, :destroy]
-
+    before_action :find_project, except: [:index, :create]
+ 
     # GET /projects 
     def index
-        render json: Project.all, status: :ok
-    end
-
-    # POST /projects
-    def create
-        project = Project.create(project_params)
-        if project.valid?
-            app_response(data: project)
-        else
-            app_response(message: "Something went wrong", data: project.errors.full_messages, status: :unprocessable_entity)
-        end
+        projects = Project.all
+        app_response(data: projects)
     end
 
     # GET /projects/:id
     def show
-        render json: @project, status: :ok
+        render json: @project, include: :issues
+    end
+
+    # POST /projects
+    def create
+        project = Project.new(project_params)
+        project.project_users.build(user: current_user)
+        if project.save
+            app_response(data: project)
+        else
+            app_response(message: "Something went wrong", data: project.errors.full_messages, status: :unprocessable_entity)
+        end
+
     end
 
     # PUT /projects/:id
     def update
-        render json: @project, status: :ok
     end
 
     # DELETE /projects/:id
     def destroy
-    end
+        @project.destroy!
+        head :no_content
+    end 
 
     private
+
     def find_project
-        @project = Project.find params[:id]
-        rescue ActiveRecord::RecordNotFound => e
-            render json: { error: e }, status: :not_found
+        @project = Project.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+        render json: { errors: e }, status: :not_found
     end
 
     def project_params
         params.permit(:name, :description, :start_date, :end_date)
     end
-
 end

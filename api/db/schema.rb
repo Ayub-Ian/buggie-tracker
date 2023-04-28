@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_09_174833) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_163957) do
+  create_table "issues", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", null: false
+    t.string "summary", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "priority", default: 0, null: false
+    t.integer "assigned_to"
+    t.text "resolution_summary"
+    t.text "issue_steps", null: false
+    t.date "resolution_date"
+    t.integer "user_identified"
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_issues_on_project_id"
+  end
+
+  create_table "project_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_users_on_project_id"
+    t.index ["user_id"], name: "index_project_users_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
@@ -31,4 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_174833) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "issues", "projects"
+  add_foreign_key "project_users", "projects"
+  add_foreign_key "project_users", "users"
 end

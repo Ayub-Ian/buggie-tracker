@@ -1,6 +1,7 @@
 import {
   CalendarDaysIcon,
   CalendarIcon,
+  ChevronDownIcon,
   ClockIcon,
   MagnifyingGlassIcon,
   PlusIcon,
@@ -68,7 +69,8 @@ function ProjectDetail() {
           <EllipsisHorizontalIcon className=" tw-h-5 tw-w-5 tw-text-black " />
         </button>
       </div>
-      <div className="tw-flex tw-pt-3 tw-justify-between">
+      <div className="tw-flex tw-pt-3 tw-items-end tw-justify-between">
+        <div className="tw-flex tw-items-center tw-space-x-6">
         <div>
           <p className=" tw-uppercase tw-text-accent-gray tw-text-sm tw-font-medium">
             total issues
@@ -76,8 +78,30 @@ function ProjectDetail() {
           <p>3</p>
         </div>
         <div>
+          <p className=" tw-uppercase tw-text-accent-gray tw-text-sm tw-font-medium">
+            Members
+          </p>
+          <p>3</p>
+        </div>
+        </div>
+
+
+      
+              <div className=" tw-space-x-4">
+                <button className="tw-text-sm tw-rounded-lg tw-bg-sky-500  tw-text-white tw-py-1.5 tw-px-3" >
+                Create new issue
+              </button>
+              <button className="tw-text-sm tw-rounded-lg tw-bg-sky-500  tw-text-white tw-py-1.5 tw-px-3" >
+                Add members
+              </button>
+            </div>
+        
+
+
+
+        <div>
           <div className=" tw-h-8 tw-w-8 tw-bg-sky-500 tw-relative tw-rounded-full">
-            <PlusIcon className=" tw-h-5 tw-w-5 center tw-text-white" />
+            {/* <ChevronDownIcon className=" tw-h-5 tw-w-5 center tw-text-white" /> */}
           </div>
         </div>
       </div>

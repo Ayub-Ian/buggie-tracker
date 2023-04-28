@@ -7,9 +7,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  # GET /projects/:id/project_members
+  get "/projects/:id/project_members", controller: :project_users, action: :project_members
+  get "/projects/:id/add_member", controller: :project_users, action: :create
+
+
   # sessions
   post '/register', to: "users#create"
   post '/login', to: "sessions#create"
   get '/verify_token', to: "sessions#verify"
   delete '/logout', to: "sessions#destroy"
+  get "/my-profile", controller: :sessions, action: :my_profile
 end
