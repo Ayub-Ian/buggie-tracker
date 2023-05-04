@@ -23,7 +23,7 @@ function Projects() {
     try {
       const response = await client.getAllProjects();
       setError(null);
-      setProjects(response.data);
+      setProjects(response.data.data);
     } catch (error) {
       setError(error.response.data);
     }
@@ -76,6 +76,7 @@ function Projects() {
     allProducts();
   }, []);
 
+  console.log({projects})
   return (
     <div className=" tw-container">
       <div className="tw-flex tw-justify-between tw-py-7 tw-border-b tw-border-accent-primary">

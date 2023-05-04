@@ -31,10 +31,17 @@ const createProject = (data) => {
     return instance().post("/projects", data)
 }
 
+const getProjectDetail = (id) => {
+    return instance().get(`/projects/${id}`)
+}
+
+const getIssueDetail = (id) => {
+    return instance().get(`/issues/${id}`)
+}
 
 
 const client = {
-    register, login, logout, getAllProjects, createProject
+    register, login, logout, getAllProjects, createProject, getProjectDetail, getIssueDetail
 }
 
 export default client

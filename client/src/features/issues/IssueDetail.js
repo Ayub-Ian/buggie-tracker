@@ -6,21 +6,63 @@ import {
   LockClosedIcon,
   LockOpenIcon,
 } from "@heroicons/react/24/outline";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import client from "../../utils/network";
 
 function IssueDetail() {
+  let { id } = useParams();
+  const [loading, setLoading] = useState(false);
+  const [issue, setIssue] = useState(null)
+  const [error, setError] = useState(null)
+
+  const StepsRecreate = () => {
+    let stepsStr = issue.issue_steps
+    let stepsArr = stepsStr.split(",")
+    return (
+      <>
+      {stepsArr.map((step, i) => (
+        <li key={i}>{step}</li>
+      ))}
+      </>
+    )
+  }
+
+  const issueDetails = async () => {
+    setLoading(true)
+    try {
+      const res = await client.getIssueDetail(id)
+      setIssue(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    issueDetails();
+  }, [])
+  
+
+  if (!issue) {
+    return <div>
+      <p>Loading ...</p>
+    </div>
+  }
+
+console.log(issue)
+
   return (
     <div className=" tw-mt-7 ">
       <div className=" tw-container tw-flex tw-items-center tw-justify-between">
         <div className=" tw-flex tw-items-center tw-space-x-3">
-          <Link className=" tw-flex tw-items-center tw-text-blue-500 tw-space-x-2">
+          <Link to={`/project/${issue.project.id}`} className=" tw-flex tw-items-center tw-text-blue-500 tw-space-x-2">
             <ArrowLeftIcon className=" tw-h-5 tw-w-5" />
-            <p>Project A</p>
+            <p>{issue.project.name}</p>
           </Link>
           <span>/</span>
-          <p className=" tw-font-medium">Website not responsive</p>
-          <p className=" tw-text-accent-gray"># 32</p>
+          <p className=" tw-font-medium">{issue.title}</p>
+          <p className=" tw-text-accent-gray"># {issue.id}</p>
         </div>
         <div className=" tw-flex tw-items-center tw-space-x-5">
           <button className=" tw-bg-accent-smoke tw-py-0.5 tw-px-3 tw-rounded-lg">
@@ -39,7 +81,7 @@ function IssueDetail() {
           <div className=" tw-flex tw-space-x-3 tw-items-start">
             <div className=" tw-h-8 tw-w-8 tw-bg-black tw-rounded-full"></div>
             <div className=" tw-space-y-0.5">
-              <p className=" tw-font-medium">Esther Passaris</p>
+              <p className=" tw-font-medium">{issue.identified_by.name}</p>
               <p className=" tw-text-xs">
                 Published on 14th Feb 2023 at 9.30pm
               </p>
@@ -49,43 +91,34 @@ function IssueDetail() {
           <div className=" tw-w-full tw-bg-accent-smoke tw-rounded-lg tw-mt-3 tw-py-3 tw-px-11 tw-space-y-3">
             <h3 className=" tw-font-medium">Issue description</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-              vehicula ipsum ut malesuada semper. Praesent auctor nunc rutrum
-              turpis tempus, eget iaculis urna facilisis. Etiam gravida eleifend
-              urna. Suspendisse tortor nunc, dapibus id commodo eu, ornare a ex.
-              Maecenas tellus dui, consectetur vel porta at, ultricies non
-              felis. Fusce sit amet felis faucibus, feugiat turpis ut, elementum
-              quam.{" "}
+              {issue.description}
             </p>
             <h3 className=" tw-font-medium">Steps to recreate</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-              vehicula ipsum ut malesuada semper. Praesent auctor nunc rutrum
-              turpis tempus, eget iaculis urna facilisis. Etiam gravida eleifend
-              urna.{" "}
-            </p>
+            <ol className=" tw-list-decimal">
+              <StepsRecreate />
+            </ol>
           </div>
           {/* comments  */}
           <div className=" tw-mt-8">
             <div className=" tw-space-y-2">
-            <div className=" tw-flex tw-space-x-3 tw-items-start">
+              <div className=" tw-flex tw-space-x-3 tw-items-start">
                 <div className=" tw-relative tw-w-fit">
-                    <ChatBubbleLeftEllipsisIcon className=" tw-h-4 tw-w-4 tw-absolute tw-z-10 tw-rounded-sm tw-bg-white tw-top-3/4 tw-right-0" />
-                <div className=" tw-h-8 tw-w-8 tw-bg-black tw-rounded-full"></div>
+                  <ChatBubbleLeftEllipsisIcon className=" tw-h-4 tw-w-4 tw-absolute tw-z-10 tw-rounded-sm tw-bg-white tw-top-3/4 tw-right-0" />
+                  <div className=" tw-h-8 tw-w-8 tw-bg-black tw-rounded-full"></div>
+                </div>
+                <div className=" tw-space-y-0.5">
+                  <p className=" tw-font-medium">Esther Passaris</p>
+                  <p className=" tw-text-xs">
+                    Commented on 14th Feb 2023 at 9.30pm
+                  </p>
+                </div>
               </div>
-              <div className=" tw-space-y-0.5">
-                <p className=" tw-font-medium">Esther Passaris</p>
-                <p className=" tw-text-xs">
-                  Commented on 14th Feb 2023 at 9.30pm
-                </p>
-              </div>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-              vehicula ipsum ut malesuada semper. Praesent auctor nunc rutrum
-              turpis tempus, eget iaculis urna facilisis. Etiam gravida eleifend
-              urna.{" "}
-            </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+                vehicula ipsum ut malesuada semper. Praesent auctor nunc rutrum
+                turpis tempus, eget iaculis urna facilisis. Etiam gravida
+                eleifend urna.{" "}
+              </p>
             </div>
           </div>
         </div>
@@ -94,7 +127,7 @@ function IssueDetail() {
           <div className=" tw-space-y-1">
             <div className=" tw-flex tw-items-start tw-space-x-3 tw-text-accent-green">
               <LockOpenIcon className=" tw-h-5 tw-w-5" />
-              <p className=" tw-font-medium">Open Issue</p>
+              <p className=" tw-font-medium tw-lowercase">{issue.status} issue</p>
             </div>
             <div className=" tw-flex tw-items-start tw-space-x-3 tw-text-accent-gray">
               <ChatBubbleLeftEllipsisIcon className=" tw-h-5 tw-w-5" />
@@ -102,7 +135,7 @@ function IssueDetail() {
             </div>
             <div className=" tw-flex tw-items-start tw-space-x-3">
               <ChartBarIcon className=" tw-h-5 tw-w-5" />
-              <p className=" tw-font-medium">High priority</p>
+              <p className=" tw-font-medium tw-lowercase">{issue.priority} priority</p>
             </div>
           </div>
           <div className=" tw-py-3 tw-space-y-2.5">
@@ -113,25 +146,24 @@ function IssueDetail() {
               <p className=" tw-text-accent-gray">Identified by:</p>
               <div className=" tw-flex tw-items-center tw-space-x-2">
                 <div className=" tw-h-5 tw-w-5 tw-bg-black tw-rounded-full"></div>
-                <p>Esther Passaris</p>
+                <p>{issue.identified_by.name}</p>
               </div>
             </div>
             <div className=" tw-flex tw-items-center tw-space-x-2">
               <p className=" tw-text-accent-gray"> Assigned to:</p>
               <div className=" tw-flex tw-items-center tw-space-x-2">
                 <div className=" tw-h-5 tw-w-5 tw-bg-black tw-rounded-full"></div>
-                <p>Esther Passaris</p>
+                <p>{issue.user_assigned.name}</p>
               </div>
             </div>
             <div className=" tw-space-y-1">
               <p className=" tw-text-accent-gray">Summary</p>
               <p className=" tw-max-w-xs">
-                Praesent auctor nunc rutrum turpis tempus, eget iaculis urna
-                facilisis. Etiam gravida eleifend urna.
+               {issue.summary}
               </p>
             </div>
           </div>
-          <div className=" tw-py-3 tw-space-y-2.5">
+          {issue.resolution ?           <div className=" tw-py-3 tw-space-y-2.5">
             <h4 className=" tw-font-medium tw-uppercase tw-text-accent-gray">
               Resolution
             </h4>
@@ -146,7 +178,8 @@ function IssueDetail() {
               <p className=" tw-text-accent-gray">Date:</p>
               <p>01/12/2022</p>
             </div>
-          </div>
+          </div> : null}
+
         </div>
       </div>
     </div>

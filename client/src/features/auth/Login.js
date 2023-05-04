@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthLayout } from "../../components/layouts/AuthLayout";
 import Loader from "../../components/misc/Loader";
-import { storeToken } from "../../utils/auth";
+import { saveUser, storeToken } from "../../utils/auth";
 import client from "../../utils/network";
 
 
@@ -29,6 +29,7 @@ function Login() {
     try {
       const response = await client.login(loginData);
       setError(null)
+      saveUser(response.data.data.user.id)
       storeToken(response.data.data.token)
       toast.success("Log in successful!", {
         position: toast.POSITION.TOP_RIGHT,
