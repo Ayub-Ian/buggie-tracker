@@ -46,7 +46,7 @@ function Navbar() {
           <div className="dropdown">
             <div className="tw-flex tw-items-center tw-gap-1 tw-border tw-border-accent-gray tw-rounded-lg tw-py-1 tw-px-2">
               <UserCircleIcon className="tw-h-5 tw-w-6" />
-              <p>John Doe</p>
+              <p>{localStorage.getItem("name")}</p>
             </div>
             <div className=" dropdown-content tw-flex tw-flex-col tw-bg-accent-primary tw-w-full tw-p-5 tw-rounded-lg">
               <Link

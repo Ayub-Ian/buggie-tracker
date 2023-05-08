@@ -1,5 +1,6 @@
-const saveUser =  (uid) => {
+const saveUser =  (uid, name) => {
     localStorage.setItem('uid', uid.toString());
+    localStorage.setItem('name', name.toString());
 }
 
 const getUser = () => {

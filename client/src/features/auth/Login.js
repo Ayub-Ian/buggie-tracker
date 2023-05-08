@@ -29,7 +29,7 @@ function Login() {
     try {
       const response = await client.login(loginData);
       setError(null)
-      saveUser(response.data.data.user.id)
+      saveUser(response.data.data.user.id, response.data.data.user.name)
       storeToken(response.data.data.token)
       toast.success("Log in successful!", {
         position: toast.POSITION.TOP_RIGHT,
