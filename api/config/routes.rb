@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   # GET /projects/:id/project_members
   get "/projects/:id/project_members", controller: :project_users, action: :project_members
-  get "/projects/:id/add_member", controller: :project_users, action: :create
-
+  post "/projects/:id/add_member", controller: :project_users, action: :create
+  get "/project/:id/not_members", controller: :project_users, action: :not_members
 
   # sessions
   post '/register', to: "users#create"

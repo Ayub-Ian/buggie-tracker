@@ -34,6 +34,10 @@ const createIssue = (data) => {
   return instance().post("/issues", data);
 }
 
+const addMemberToProject = (id,data) => {
+  return instance().post(`/projects/${id}/add_member`, data)
+}
+
 
 // GET requests 
 const getAllProjects = () => {
@@ -52,6 +56,10 @@ const getProjectMembers = (id) => {
   return instance().get(`/projects/${id}/project_members`);
 };
 
+const getNotProjectMembers = (id) => {
+  return instance().get(`/project/${id}/not_members`)
+}
+
 // PUT rewquests
 
 // DELETE requests
@@ -64,7 +72,7 @@ const client = {
   createProject,
   getProjectDetail,
   getIssueDetail,
-  getProjectMembers, createIssue
+  getProjectMembers, createIssue, getNotProjectMembers, addMemberToProject
 };
 
 export default client;
