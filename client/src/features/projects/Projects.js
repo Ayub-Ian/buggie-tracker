@@ -15,7 +15,7 @@ function Projects() {
     name: "",
     description: "",
     start_date: "",
-    end_date: "",
+    end_date: ""
   });
 
   const allProducts = async () => {
@@ -76,7 +76,7 @@ function Projects() {
     allProducts();
   }, []);
 
-  console.log({projects})
+  
   return (
     <div className=" tw-container">
       <div className="tw-flex tw-justify-between tw-py-7 tw-border-b tw-border-accent-primary">

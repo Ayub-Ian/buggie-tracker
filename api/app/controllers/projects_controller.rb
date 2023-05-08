@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
+    before_action :authorize_request
     before_action :find_project, except: [:index, :create]
  
     # GET /projects 
     def index
-        projects = Project.all
+        projects = @current_user.projects
         app_response(data: projects)
     end
 

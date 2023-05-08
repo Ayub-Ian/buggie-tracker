@@ -1,5 +1,8 @@
 class ProjectUsersController < ApplicationController
     # POST /project/:id/add_members
+    before_action :authorize_request
+    # before_action :current_user, only: [:project_members]
+
     def create
         user = User.find_by(id: params[:user_id])
         if !user
@@ -26,9 +29,9 @@ class ProjectUsersController < ApplicationController
 
     # GET /project/:id/project_members
     def project_members
-        current_project = current_user.projects.find_by(id: params[:id])
+        current_project = @current_user.projects.find_by(id: params[:id])
         members = current_project.members
-        render json: {members: members, current_project: current_project}
+        render json: {members: members}
     end
 
 end

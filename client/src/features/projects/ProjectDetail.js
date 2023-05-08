@@ -14,7 +14,6 @@ function ProjectDetail() {
     title: "",
     description: "",
     summary: "",
-    status: "",
     priority: "",
     assigned_to: "",
     issue_steps: "",
@@ -23,9 +22,17 @@ function ProjectDetail() {
   });
 
   const [project, setProject] = useState(null);
+  const [projectMembers, setProjectMembers] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
+  const [completed, setCompleted] = useState(false);
+
+
+  const memberOptions = projectMembers && projectMembers.map(member => (
+    <option key={member.id} value={member.id} >{member.name}</option>
+  ))
+ 
 
   const getProjectDetail = async () => {
     setLoading(true);
@@ -36,7 +43,17 @@ function ProjectDetail() {
       console.log(error);
     }
     setLoading(false);
-  };
+  }
+
+  const getProjectMembers = async () => {
+    try {
+      const projectMembers = await client.getProjectMembers(id)
+      setProjectMembers(projectMembers.data.members)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   const handleChange = (e) =>
     setFormData({
@@ -46,12 +63,36 @@ function ProjectDetail() {
 
   const createIssue = async (e) => {
     e.preventDefault();
+
+    const data = {
+      title: formData.title,
+      description: formData.description,
+      summary: formData.summary,
+      priority: parseInt(formData.priority),
+      assigned_to: parseInt(formData.assigned_to),
+      issue_steps: formData.issue_steps,
+      user_identified: parseInt(formData.user_identified),
+      project_id: parseInt(formData.project_id),
+    }
+
+    setLoading(true);
+    try {
+      const res = await client.createIssue(data)
+      setCompleted(true)
+    } catch (error) {
+      setError(error.response.data.data)
+      console.log(error)
+    }
+    setLoading(false);
     console.log(formData);
   };
 
+
+
   useEffect(() => {
     getProjectDetail();
-  }, []);
+    getProjectMembers();
+  }, [completed]);
 
   if (!project) {
     return (
@@ -60,6 +101,8 @@ function ProjectDetail() {
       </div>
     );
   }
+
+ 
 
   return (
     <div className=" tw-container tw-flex tw-gap-x-8">
@@ -83,6 +126,7 @@ function ProjectDetail() {
               <input
                 type="checkbox"
                 value="all"
+                readOnly
                 className=" tw-bg-transparent"
               />
               <label className=" tw-text-sm">All</label>
@@ -91,6 +135,7 @@ function ProjectDetail() {
               <input
                 type="checkbox"
                 value="all"
+                readOnly
                 className=" tw-bg-transparent"
               />
               <label className=" tw-text-sm">Assigned to me</label>
@@ -104,6 +149,7 @@ function ProjectDetail() {
               <input
                 type="checkbox"
                 value="all"
+                readOnly
                 className=" tw-bg-transparent"
               />
               <label className=" tw-text-sm">Open</label>
@@ -112,6 +158,7 @@ function ProjectDetail() {
               <input
                 type="checkbox"
                 value="all"
+                readOnly
                 className=" tw-bg-transparent"
               />
               <label className=" tw-text-sm">Closed</label>
@@ -120,6 +167,7 @@ function ProjectDetail() {
               <input
                 type="checkbox"
                 value="all"
+                readOnly
                 className=" tw-bg-transparent"
               />
               <label className=" tw-text-sm">In-Progress</label>
@@ -127,6 +175,7 @@ function ProjectDetail() {
             <div className="tw-flex tw-items-center tw-space-x-2">
               <input
                 type="checkbox"
+                readOnly
                 value="all"
                 className=" tw-bg-transparent"
               />
@@ -139,7 +188,6 @@ function ProjectDetail() {
             </h5>
             <input
               type="date"
-              value=""
               className=" tw-w-full tw-rounded-lg tw-text-sm tw-p-1"
             />
           </div>
@@ -189,6 +237,8 @@ function ProjectDetail() {
             </div>
           </div>
         </div>
+
+   
 
         <IssueList issues={project.issues} />
       </div>
@@ -270,9 +320,7 @@ function ProjectDetail() {
                   className=" tw-bg-accent-smoke tw-w-full tw-py-1.5 tw-px-4 tw-rounded-lg tw-border tw-border-accent-primary tw-outline-none tw-border-none focus:tw-bg-white focus:tw-outline-1 focus:tw-outline-accent-orange "
                 >
                   <option value="">Please choose an option</option>
-                  <option value="1">Jane Doe</option>
-                  <option value="2">John Doe</option>
-                  <option value="3">Ian Ayub</option>
+                  {memberOptions}
                 </select>
               </div>
               {loading ? (
