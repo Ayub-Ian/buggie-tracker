@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import IssueList from "./IssueList";
 import client from "../../utils/network";
-
+import Search from "../../components/search";
 
 function Issues() {
   const [issues, setIssues] = useState(null)
+  const [search, setSearch] = useState("")
 
   const getAllIssues = async () => {
     try {
       const res = await client.getAllIssues()
-      console.log(res)
       setIssues(res.data)
     } catch (error) {
       console.log(error.response)
@@ -17,10 +17,11 @@ function Issues() {
   }
 
   useEffect(() => {
-
     getAllIssues()
   }, [])
   
+
+const filteredIssues = issues && issues.filter(issue => issue.title.toLowerCase().includes(search.toLowerCase()))
 
   if (!issues) {
     return (
@@ -40,21 +41,13 @@ function Issues() {
       <div className="tw-flex tw-pt-3 tw-items-end tw-justify-between">
         <div className="tw-flex tw-items-center tw-space-x-6">
           <div>
-            <p className=" tw-uppercase tw-text-accent-gray tw-text-sm tw-font-medium">
-              total issues
-            </p>
-            <p>3</p>
+            <Search placeholder="Search issues" search={search} onSearch={(input) => setSearch(input)} />
           </div>
         </div>
 
-        <div>
-          <div className=" tw-h-8 tw-w-8 tw-bg-sky-500 tw-relative tw-rounded-full">
-            {/* <ChevronDownIcon className=" tw-h-5 tw-w-5 center tw-text-white" /> */}
-          </div>
-        </div>
       </div>
       
-      <IssueList issues={issues}/>
+      <IssueList issues={filteredIssues}/>
 
     </div>
   );

@@ -1,25 +1,15 @@
-import { FolderPlusIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { FolderPlusIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import ProjectItem from "./ProjectItem";
+import Search from "../../components/search";
 
 
-export default function ProjectList({ projects, setShowModal }) {
+export default function ProjectList({ projects, setShowModal, search, onSearch={onSearch} }) {
   return (
     <React.Fragment>
       <div className="tw-flex tw-pt-3 tw-justify-between">
         <div>
-          <p className=" tw-uppercase tw-text-accent-gray">total projects</p>
-          <p>3</p>
-        </div>
-        <div>
-          <div className=" tw-w-72 tw-relative">
-            <input
-              type="text"
-              className=" tw-bg-accent-smoke tw-outline-none tw-w-full tw-px-4 tw-py-2 tw-rounded-lg"
-              placeholder="Search projects ...."
-            />
-            <MagnifyingGlassIcon className=" tw-h-5 tw-w-5 tw-absolute tw-text-accent-gray tw-bottom-1/4 tw-right-4 " />
-          </div>
+          <Search placeholder="Search projects" search={search} onSearch={onSearch} />
         </div>
       </div>
       <div className=" tw-mt-5 tw-grid tw-grid-cols-3 tw-gap-4">

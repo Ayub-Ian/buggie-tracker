@@ -8,6 +8,7 @@ import ProjectList from "./ProjectList";
 
 function Projects() {
   const [projects, setProjects] = useState(null);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -72,9 +73,15 @@ function Projects() {
     setProjects([...projects, updatedData])
   }
 
+  function handleSearch(input) {
+    setSearch(input)
+  }
+
   useEffect(() => {
     allProducts();
   }, []);
+
+  let filteredProjects = projects && projects.filter(project => project.name.toLowerCase().includes(search.toLowerCase()))
 
   
   return (
@@ -95,7 +102,7 @@ function Projects() {
           <p className=" tw-text-4xl">No available projects</p>
         </div>
       ) : (
-        <ProjectList projects={projects} setShowModal={setShowModal} />
+        <ProjectList projects={filteredProjects} setShowModal={setShowModal} search={search} onSearch={handleSearch} />
       )}
 
       {showModal ? (
