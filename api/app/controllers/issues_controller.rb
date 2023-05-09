@@ -4,7 +4,7 @@ class IssuesController < ApplicationController
     # GET /issues 
     def index
         issues = Issue.all
-        app_response(data: issues)
+        render json: issues, include: [:project]
     end
 
     # POST /issues
