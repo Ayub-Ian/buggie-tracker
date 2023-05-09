@@ -1,7 +1,6 @@
 import {
   HashtagIcon,
   RectangleStackIcon,
-  Squares2X2Icon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import React from "react";

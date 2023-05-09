@@ -5,7 +5,6 @@ import ForgotPassword from "./features/auth/ForgotPassword";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 import ResetPassword from "./features/auth/ResetPassword";
-import Dashboard from "./features/dashboard";
 import Issues from "./features/issues";
 import IssueDetail from "./features/issues/IssueDetail";
 import Profile from "./features/profile";
