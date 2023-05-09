@@ -30,7 +30,7 @@ function App() {
               </Protected>
             }
           />
-                    <Route
+          <Route
             path="/project/:id"
             element={
               <Protected>
@@ -51,14 +51,6 @@ function App() {
             element={
               <Protected>
                 <IssueDetail />
-              </Protected>
-            }
-          />
-          <Route
-            path="dashboard"
-            element={
-              <Protected>
-                <Dashboard />
               </Protected>
             }
           />

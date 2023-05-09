@@ -24,13 +24,6 @@ function Navbar() {
             <img src={logo} alt="logo" />
             <nav id="topbar" className=" tw-flex">
               <NavLink
-                to="/dashboard"
-                className="tw-mr-4 tw-flex tw-items-center "
-              >
-                <Squares2X2Icon className="tw-h-5 tw-w-5 tw-mr-1" />
-                Dashboard
-              </NavLink>
-              <NavLink
                 to="/projects"
                 className="tw-mr-4 tw-flex tw-items-center"
               >

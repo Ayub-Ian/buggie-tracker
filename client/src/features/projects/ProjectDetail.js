@@ -1,7 +1,6 @@
-import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Loader from "../../components/misc/Loader";
 import { Modal } from "../../components/misc/Modal";
 import client from "../../utils/network";
@@ -31,16 +30,21 @@ function ProjectDetail() {
   const [completed, setCompleted] = useState(false);
   const [addMemberId, setAddMemberId] = useState("");
 
+  const memberOptions =
+    projectMembers &&
+    projectMembers.map((member) => (
+      <option key={member.id} value={member.id}>
+        {member.name}
+      </option>
+    ));
 
-
-  const memberOptions = projectMembers && projectMembers.map(member => (
-    <option key={member.id} value={member.id} >{member.name}</option>
-  ))
-
-  const nonMemberOptions = nonMembers && nonMembers.map(member => (
-    <option key={member.id} value={member.id} >{member.name}</option>
-  ))
- 
+  const nonMemberOptions =
+    nonMembers &&
+    nonMembers.map((member) => (
+      <option key={member.id} value={member.id}>
+        {member.name}
+      </option>
+    ));
 
   const getProjectDetail = async () => {
     setLoading(true);
@@ -51,45 +55,41 @@ function ProjectDetail() {
       console.log(error);
     }
     setLoading(false);
-  }
+  };
 
   const getProjectMembers = async () => {
     try {
-      const projectMembers = await client.getProjectMembers(id)
-      setProjectMembers(projectMembers.data.members)
+      const projectMembers = await client.getProjectMembers(id);
+      setProjectMembers(projectMembers.data.members);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const getNonMembers = async () => {
     try {
-      const nonMembers = await client.getNotProjectMembers(id)
-      setNonMembers(nonMembers.data.data)
+      const nonMembers = await client.getNotProjectMembers(id);
+      setNonMembers(nonMembers.data.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const addMemberToProject = async (e) => {
-    e.preventDefault()
-   const data ={
-    user_id: parseInt(addMemberId)
-   }
+    e.preventDefault();
+    const data = {
+      user_id: parseInt(addMemberId),
+    };
 
-   console.log(data)
     setLoading(true);
     try {
-      const res = await client.addMemberToProject(id, data)
-      console.log(res)
-      setCompleted(true)
+      const res = await client.addMemberToProject(id, data);
+      setCompleted(true);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     setLoading(false);
-
-  }
-
+  };
 
   const handleChange = (e) =>
     setFormData({
@@ -109,21 +109,19 @@ function ProjectDetail() {
       issue_steps: formData.issue_steps,
       user_identified: parseInt(formData.user_identified),
       project_id: parseInt(formData.project_id),
-    }
+    };
 
     setLoading(true);
     try {
-      const res = await client.createIssue(data)
-      setCompleted(true)
+      const res = await client.createIssue(data);
+      setCompleted(true);
     } catch (error) {
-      setError(error.response.data.data)
-      console.log(error)
+      setError(error.response.data.data);
+      console.log(error);
     }
     setLoading(false);
     console.log(formData);
   };
-
-
 
   useEffect(() => {
     getProjectDetail();
@@ -139,98 +137,8 @@ function ProjectDetail() {
     );
   }
 
- 
-
   return (
     <div className=" tw-container tw-flex tw-gap-x-8">
-      {/* filter section  */}
-      <div className=" tw-w-80 tw-pt-7">
-        <div className=" tw-bg-sky-100 tw-px-5 tw-pt-5 tw-pb-10 tw-space-y-5 tw-rounded-lg">
-          <div className="tw-flex tw-items-center tw-justify-between">
-            <h3 className=" tw-text-slate-900 tw-font-medium">Filters</h3>
-            <button className=" tw-text-sm tw-text-slate-500">Clear all</button>
-          </div>
-          <input
-            type="text"
-            placeholder="Search issues..."
-            className=" tw-w-full tw-rounded-lg tw-p-1 placeholder:tw-text-sm"
-          />
-          <div>
-            <h5 className=" tw-text-sm tw-uppercase tw-text-slate-700 tw-mb-2">
-              Show
-            </h5>
-            <div className="tw-flex tw-items-center tw-space-x-2">
-              <input
-                type="checkbox"
-                value="all"
-                readOnly
-                className=" tw-bg-transparent"
-              />
-              <label className=" tw-text-sm">All</label>
-            </div>
-            <div className="tw-flex tw-items-center tw-space-x-2">
-              <input
-                type="checkbox"
-                value="all"
-                readOnly
-                className=" tw-bg-transparent"
-              />
-              <label className=" tw-text-sm">Assigned to me</label>
-            </div>
-          </div>
-          <div>
-            <h5 className=" tw-text-sm tw-uppercase tw-text-slate-700 tw-mb-2">
-              Status
-            </h5>
-            <div className="tw-flex tw-items-center tw-space-x-2">
-              <input
-                type="checkbox"
-                value="all"
-                readOnly
-                className=" tw-bg-transparent"
-              />
-              <label className=" tw-text-sm">Open</label>
-            </div>
-            <div className="tw-flex tw-items-center tw-space-x-2">
-              <input
-                type="checkbox"
-                value="all"
-                readOnly
-                className=" tw-bg-transparent"
-              />
-              <label className=" tw-text-sm">Closed</label>
-            </div>
-            <div className="tw-flex tw-items-center tw-space-x-2">
-              <input
-                type="checkbox"
-                value="all"
-                readOnly
-                className=" tw-bg-transparent"
-              />
-              <label className=" tw-text-sm">In-Progress</label>
-            </div>
-            <div className="tw-flex tw-items-center tw-space-x-2">
-              <input
-                type="checkbox"
-                readOnly
-                value="all"
-                className=" tw-bg-transparent"
-              />
-              <label className=" tw-text-sm">Resolved</label>
-            </div>
-          </div>
-          <div>
-            <h5 className=" tw-text-sm tw-uppercase tw-text-slate-700 tw-mb-2">
-              Creation date
-            </h5>
-            <input
-              type="date"
-              className=" tw-w-full tw-rounded-lg tw-text-sm tw-p-1"
-            />
-          </div>
-        </div>
-      </div>
-
       <div className=" tw-container">
         <div className="tw-flex tw-justify-between tw-py-7 tw-border-b tw-border-accent-primary">
           <h1 className=" tw-uppercase tw-font-medium tw-text-xl">
@@ -241,21 +149,6 @@ function ProjectDetail() {
           </button>
         </div>
         <div className="tw-flex tw-pt-3 tw-items-end tw-justify-between">
-          <div className="tw-flex tw-items-center tw-space-x-6">
-            <div>
-              <p className=" tw-uppercase tw-text-accent-gray tw-text-sm tw-font-medium">
-                total issues
-              </p>
-              <p>3</p>
-            </div>
-            <div>
-              <p className=" tw-uppercase tw-text-accent-gray tw-text-sm tw-font-medium">
-                Members
-              </p>
-              <p>3</p>
-            </div>
-          </div>
-
           <div className=" tw-space-x-4">
             <button
               onClick={() => setShowModal(true)}
@@ -263,19 +156,14 @@ function ProjectDetail() {
             >
               Create new issue
             </button>
-            <button onClick={() => setShowAddMember(true)} className="tw-text-sm tw-rounded-lg tw-bg-sky-500  tw-text-white tw-py-1.5 tw-px-3">
+            <button
+              onClick={() => setShowAddMember(true)}
+              className="tw-text-sm tw-rounded-lg tw-bg-sky-500  tw-text-white tw-py-1.5 tw-px-3"
+            >
               Add members
             </button>
           </div>
-
-          <div>
-            <div className=" tw-h-8 tw-w-8 tw-bg-sky-500 tw-relative tw-rounded-full">
-              {/* <ChevronDownIcon className=" tw-h-5 tw-w-5 center tw-text-white" /> */}
-            </div>
-          </div>
         </div>
-
-   
 
         <IssueList issues={project.issues} />
       </div>
@@ -374,9 +262,7 @@ function ProjectDetail() {
         </Modal>
       ) : null}
 
-
-
-{showAddMember ? (
+      {showAddMember ? (
         <Modal title="Add member" setShowModal={setShowAddMember}>
           {error && !loading ? (
             <div className=" tw-border tw-border-red-300 tw-bg-red-200 tw-text-red-800 tw-p-3 tw-w-full tw-mb-2">
@@ -387,7 +273,6 @@ function ProjectDetail() {
           ) : null}
           <form onSubmit={addMemberToProject}>
             <div className=" tw-space-y-3 tw-w-full ">
-
               <div className="tw-flex tw-flex-col tw-space-y-2 tw-w-full">
                 <label>Choose user</label>
                 <select
