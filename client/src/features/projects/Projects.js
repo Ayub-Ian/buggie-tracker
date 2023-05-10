@@ -97,7 +97,7 @@ function Projects() {
         </button>
       </div>
 
-      {projects.length === 0 ? (
+      {!projects || projects.length === 0 ? (
         <div className=" tw-flex tw-items-center tw-flex-col tw-space-y-14 tw-text-accent-gray center">
           <FaceFrownIcon className=" tw-h-24 tw-w-24" />
           <p className=" tw-text-4xl">No available projects</p>
