@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import IssueList from "./IssueList";
 import client from "../../utils/network";
 import Search from "../../components/search";
+import { FaceFrownIcon } from "@heroicons/react/24/outline";
 
 function Issues() {
   const [issues, setIssues] = useState(null)
@@ -46,6 +47,15 @@ const filteredIssues = issues && issues.filter(issue => issue.title.toLowerCase(
         </div>
 
       </div>
+
+      {issues.length === 0 ? (
+        <div className=" tw-flex tw-items-center tw-flex-col tw-space-y-14 tw-text-accent-gray center">
+          <FaceFrownIcon className=" tw-h-24 tw-w-24" />
+          <p className=" tw-text-4xl">No available issues</p>
+        </div>
+      ) : (
+        <IssueList issues={filteredIssues}/>
+      )}
       
       <IssueList issues={filteredIssues}/>
 

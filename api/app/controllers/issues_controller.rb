@@ -19,7 +19,7 @@ class IssuesController < ApplicationController
 
     # GET /issues/:id
     def show
-        render json: @issue, include: [:identified_by, :user_assigned, :project]  
+        render json: @issue, include: [:identified_by, :user_assigned, :project, :comments => { :include => :user}]  
     end
 
     # PUT  /issues/:id

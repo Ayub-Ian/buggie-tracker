@@ -9,54 +9,59 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import client from "../../utils/network";
+import CommentList from "./CommentList";
+import AddComment from "./AddComment";
 
 function IssueDetail() {
   let { id } = useParams();
   const [loading, setLoading] = useState(false);
-  const [issue, setIssue] = useState(null)
-  const [error, setError] = useState(null)
+  const [issue, setIssue] = useState(null);
+  const [complete, setComplete] = useState(false);
 
   const StepsRecreate = () => {
-    let stepsStr = issue.issue_steps
-    let stepsArr = stepsStr.split(",")
+    let stepsStr = issue.issue_steps;
+    let stepsArr = stepsStr.split(",");
     return (
       <>
-      {stepsArr.map((step, i) => (
-        <li key={i}>{step}</li>
-      ))}
+        {stepsArr.map((step, i) => (
+          <li key={i}>{step}</li>
+        ))}
       </>
-    )
-  }
+    );
+  };
 
   const issueDetails = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await client.getIssueDetail(id)
-      setIssue(res.data)
+      const res = await client.getIssueDetail(id);
+      setIssue(res.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   useEffect(() => {
     issueDetails();
-  }, [])
-  
+  }, [complete]);
 
   if (!issue) {
-    return <div>
-      <p>Loading ...</p>
-    </div>
+    return (
+      <div>
+        <p>Loading ...</p>
+      </div>
+    );
   }
 
-console.log(issue)
 
   return (
     <div className=" tw-mt-7 ">
       <div className=" tw-container tw-flex tw-items-center tw-justify-between">
         <div className=" tw-flex tw-items-center tw-space-x-3">
-          <Link to={`/project/${issue.project.id}`} className=" tw-flex tw-items-center tw-text-blue-500 tw-space-x-2">
+          <Link
+            to={`/project/${issue.project.id}`}
+            className=" tw-flex tw-items-center tw-text-blue-500 tw-space-x-2"
+          >
             <ArrowLeftIcon className=" tw-h-5 tw-w-5" />
             <p>{issue.project.name}</p>
           </Link>
@@ -75,9 +80,10 @@ console.log(issue)
         </div>
       </div>
       <div className=" tw-bg-accent-primary tw-w-full tw-h-0.5 tw-mt-4"></div>
-      <div className="tw-flex tw-container tw-divide-x tw-min-h-max">
+      <div className="tw-flex tw-container tw-divide-x ">
         {/* left panel start  */}
-        <div className=" tw-flex-1 tw-pt-5 tw-pr-8">
+        <div className=" tw-flex-1 tw-flex tw-flex-col tw-justify-between tw-space-y-12 tw-pt-5 tw-pr-8">
+          <div className="tw-flex-1 tw-min-h-[300px]  tw-overflow-y-scroll ">
           <div className=" tw-flex tw-space-x-3 tw-items-start">
             <div className=" tw-h-8 tw-w-8 tw-bg-black tw-rounded-full"></div>
             <div className=" tw-space-y-0.5">
@@ -90,44 +96,30 @@ console.log(issue)
           {/* issue description  */}
           <div className=" tw-w-full tw-bg-accent-smoke tw-rounded-lg tw-mt-3 tw-py-3 tw-px-11 tw-space-y-3">
             <h3 className=" tw-font-medium">Issue description</h3>
-            <p>
-              {issue.description}
-            </p>
+            <p>{issue.description}</p>
             <h3 className=" tw-font-medium">Steps to recreate</h3>
             <ol className=" tw-list-decimal">
               <StepsRecreate />
             </ol>
           </div>
           {/* comments  */}
-          <div className=" tw-mt-8">
-            <div className=" tw-space-y-2">
-              <div className=" tw-flex tw-space-x-3 tw-items-start">
-                <div className=" tw-relative tw-w-fit">
-                  <ChatBubbleLeftEllipsisIcon className=" tw-h-4 tw-w-4 tw-absolute tw-z-10 tw-rounded-sm tw-bg-white tw-top-3/4 tw-right-0" />
-                  <div className=" tw-h-8 tw-w-8 tw-bg-black tw-rounded-full"></div>
-                </div>
-                <div className=" tw-space-y-0.5">
-                  <p className=" tw-font-medium">Esther Passaris</p>
-                  <p className=" tw-text-xs">
-                    Commented on 14th Feb 2023 at 9.30pm
-                  </p>
-                </div>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-                vehicula ipsum ut malesuada semper. Praesent auctor nunc rutrum
-                turpis tempus, eget iaculis urna facilisis. Etiam gravida
-                eleifend urna.{" "}
-              </p>
-            </div>
+          <CommentList comments={issue.comments} />
+          
+
           </div>
+
+          {/* comment form  */}
+          <AddComment id={issue.id} onAddComment={(input)=>setComplete(input)} />
         </div>
+
         {/* right panel start */}
         <div className=" tw-px-2 tw-pt-5 tw-space-y-4 tw-divide-y">
           <div className=" tw-space-y-1">
             <div className=" tw-flex tw-items-start tw-space-x-3 tw-text-accent-green">
               <LockOpenIcon className=" tw-h-5 tw-w-5" />
-              <p className=" tw-font-medium tw-lowercase">{issue.status} issue</p>
+              <p className=" tw-font-medium tw-lowercase">
+                {issue.status} issue
+              </p>
             </div>
             <div className=" tw-flex tw-items-start tw-space-x-3 tw-text-accent-gray">
               <ChatBubbleLeftEllipsisIcon className=" tw-h-5 tw-w-5" />
@@ -135,7 +127,9 @@ console.log(issue)
             </div>
             <div className=" tw-flex tw-items-start tw-space-x-3">
               <ChartBarIcon className=" tw-h-5 tw-w-5" />
-              <p className=" tw-font-medium tw-lowercase">{issue.priority} priority</p>
+              <p className=" tw-font-medium tw-lowercase">
+                {issue.priority} priority
+              </p>
             </div>
           </div>
           <div className=" tw-py-3 tw-space-y-2.5">
@@ -158,28 +152,27 @@ console.log(issue)
             </div>
             <div className=" tw-space-y-1">
               <p className=" tw-text-accent-gray">Summary</p>
-              <p className=" tw-max-w-xs">
-               {issue.summary}
-              </p>
+              <p className=" tw-max-w-xs">{issue.summary}</p>
             </div>
           </div>
-          {issue.resolution ?           <div className=" tw-py-3 tw-space-y-2.5">
-            <h4 className=" tw-font-medium tw-uppercase tw-text-accent-gray">
-              Resolution
-            </h4>
-            <div className=" tw-space-y-1">
-              <p className=" tw-text-accent-gray">Summary</p>
-              <p className=" tw-max-w-xs">
-                Praesent auctor nunc rutrum turpis tempus, eget iaculis urna
-                facilisis. Etiam gravida eleifend urna.
-              </p>
+          {issue.resolution ? (
+            <div className=" tw-py-3 tw-space-y-2.5">
+              <h4 className=" tw-font-medium tw-uppercase tw-text-accent-gray">
+                Resolution
+              </h4>
+              <div className=" tw-space-y-1">
+                <p className=" tw-text-accent-gray">Summary</p>
+                <p className=" tw-max-w-xs">
+                  Praesent auctor nunc rutrum turpis tempus, eget iaculis urna
+                  facilisis. Etiam gravida eleifend urna.
+                </p>
+              </div>
+              <div className=" tw-flex tw-items-center tw-space-x-2">
+                <p className=" tw-text-accent-gray">Date:</p>
+                <p>01/12/2022</p>
+              </div>
             </div>
-            <div className=" tw-flex tw-items-center tw-space-x-2">
-              <p className=" tw-text-accent-gray">Date:</p>
-              <p>01/12/2022</p>
-            </div>
-          </div> : null}
-
+          ) : null}
         </div>
       </div>
     </div>

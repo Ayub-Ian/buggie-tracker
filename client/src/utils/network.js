@@ -38,6 +38,10 @@ const addMemberToProject = (id, data) => {
   return instance().post(`/projects/${id}/add_member`, data);
 };
 
+const addComment = (data) => {
+  return instance().post("comments", data)
+} 
+
 // GET requests
 const getAllProjects = () => {
   return instance().get("/projects");
@@ -79,7 +83,7 @@ const client = {
   createIssue,
   getNotProjectMembers,
   addMemberToProject,
-  getAllIssues
+  getAllIssues, addComment
 };
 
 export default client;
