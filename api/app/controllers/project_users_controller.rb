@@ -1,7 +1,6 @@
 class ProjectUsersController < ApplicationController
-    # POST /project/:id/add_members
+    
     before_action :authorize_request
-    # before_action :current_user, only: [:project_members]
 
     def create
         user = User.find_by(id: params[:user_id])

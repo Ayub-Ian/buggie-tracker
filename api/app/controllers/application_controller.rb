@@ -21,13 +21,4 @@ class ApplicationController < ActionController::API
         end
     end
 
-    # def save_user_id token
-    #   @uid = JsonWebToken.decode(token)["user_id"].to_i
-    # end
-
-    # # GET logged in user
-    # def current_user
-    #   @current_user = User.find(@uid)
-    # end
-
 end

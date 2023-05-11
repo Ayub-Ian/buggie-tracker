@@ -117,7 +117,7 @@ function Register() {
           <input
             type="submit"
             className=" tw-bg-accent-primary tw-w-full tw-py-2 tw-mt-6 tw-rounded-lg tw-font-medium tw-transition-all tw-duration-200 hover:tw-bg-accent-green hover:tw-scale-95 hover:tw-text-white"
-            value="Log in"
+            value="Create account"
           />
         )}
       </form>

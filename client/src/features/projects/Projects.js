@@ -7,7 +7,7 @@ import client from "../../utils/network";
 import ProjectList from "./ProjectList";
 
 function Projects() {
-  const [projects, setProjects] = useState(null);
+  const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -97,7 +97,7 @@ function Projects() {
         </button>
       </div>
 
-      {!projects || projects.length === 0 ? (
+      { projects.length === 0 ? (
         <div className=" tw-flex tw-items-center tw-flex-col tw-space-y-14 tw-text-accent-gray center">
           <FaceFrownIcon className=" tw-h-24 tw-w-24" />
           <p className=" tw-text-4xl">No available projects</p>
@@ -115,7 +115,7 @@ function Projects() {
           ))}
         </div>
       ) : null}
-          <form onSubmit={createProject}>
+          <form onSubmit={createProject} autoComplete="off">
             <div className=" tw-space-y-3">
               <div className="tw-flex tw-flex-col tw-space-y-2 tw-w-full">
                 <label>Project name</label>

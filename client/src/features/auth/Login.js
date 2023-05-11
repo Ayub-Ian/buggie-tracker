@@ -58,7 +58,7 @@ function Login() {
             value={loginData.login_id}
             onChange={handleChange}
             type="text"
-            placeholder="e.g email@domain.com"
+            placeholder="Username or email"
             className="form--field placeholder:tw-text-sm"
           />
         </div>

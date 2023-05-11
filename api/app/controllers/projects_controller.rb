@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
     # POST /projects
     def create
         project = Project.new(project_params)
-        project.project_users.build(user: current_user)
+        project.project_users.build(user: @current_user)
         if project.save
             app_response(data: project)
         else

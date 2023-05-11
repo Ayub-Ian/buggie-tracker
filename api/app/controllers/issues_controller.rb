@@ -1,4 +1,5 @@
 class IssuesController < ApplicationController
+    before_action :authorize_request
     before_action :find_issue, except: [:index, :create]
 
     # GET /issues 
