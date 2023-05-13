@@ -101,6 +101,13 @@ function Login() {
           Create an account
         </Link>
       </span>
+
+      <div className=" tw-mt-10 tw-bg-cyan-100 tw-flex tw-flex-col tw-w-full tw-p-2 tw-rounded-lg tw-border tw-border-cyan-400">
+        <p className=" tw-mb-2 tw-text-sm tw-font-semibold tw-text-cyan-900 tw-text-center">Login credentials</p>
+        <span className=" tw-text-sm tw-text-cyan-900">Username : chef_curry</span>
+        <span className=" tw-text-sm tw-text-cyan-900">Email : stephcurry@email.com</span>
+        <span className=" tw-text-sm tw-text-cyan-900">Password : password123</span>
+      </div>
     </AuthLayout>
   );
 }
