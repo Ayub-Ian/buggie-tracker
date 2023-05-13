@@ -10,12 +10,19 @@ class IssuesController < ApplicationController
 
     # POST /issues
     def create
-        issue = Issue.create(issue_params)
-        if issue.valid?
-            app_response(data: issue)
+        issue = Issue.new(issue_params)
+        if issue.save!
+            render json: issue, status: :ok
         else
-            app_response(message: "Something went wrong", data: issue.errors.full_messages, status: :unprocessable_entity)
+            render json: {error: issue.errors}, status: :unprocessable_entity
         end
+        
+        # issue = Issue.create(issue_params)
+        # if issue.valid?
+        #     app_response(data: issue)
+        # else
+        #     app_response(message: "Something went wrong", data: issue.errors.full_messages, status: :unprocessable_entity)
+        # end
     end
 
     # GET /issues/:id

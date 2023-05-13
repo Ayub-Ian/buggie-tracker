@@ -82,8 +82,8 @@ function IssueDetail() {
       <div className=" tw-bg-accent-primary tw-w-full tw-h-0.5 tw-mt-4"></div>
       <div className="tw-flex tw-container tw-divide-x ">
         {/* left panel start  */}
-        <div className=" tw-flex-1 tw-flex tw-flex-col tw-justify-between tw-space-y-12 tw-pt-5 tw-pr-8">
-          <div className="tw-flex-1 tw-min-h-[300px]  tw-overflow-y-scroll ">
+        <div className=" tw-flex-1 tw-flex tw-flex-col tw-justify-between tw-space-y-12 tw-pt-5 tw-pr-8 ">
+          <div className="tw-flex-1">
           <div className=" tw-flex tw-space-x-3 tw-items-start">
             <div className=" tw-h-8 tw-w-8 tw-bg-black tw-rounded-full"></div>
             <div className=" tw-space-y-0.5">
@@ -104,12 +104,13 @@ function IssueDetail() {
           </div>
           {/* comments  */}
           <CommentList comments={issue.comments} />
+          </div>
           
 
-          </div>
-
           {/* comment form  */}
+          <div>
           <AddComment id={issue.id} onAddComment={(input)=>setComplete(input)} />
+          </div>
         </div>
 
         {/* right panel start */}

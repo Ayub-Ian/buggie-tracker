@@ -3,11 +3,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function ProjectItem({ project }) {
-    const {id,name, description, start_date} = project
+    const {id,name, description, start_date, issue_count} = project
   return (
     <Link
     to={`/project/${id}`}
-    className="tw-group tw-block  tw-mx-auto tw-rounded-lg tw-p-6 tw-bg-white tw-ring-1 tw-ring-slate-900/5 tw-shadow-lg tw-space-y-3 hover:tw-bg-sky-500 hover:tw-ring-sky-500"
+    className="tw-group tw-block tw-w-full tw-mx-auto tw-rounded-lg tw-p-6 tw-bg-white tw-ring-1 tw-ring-slate-900/5 tw-shadow-lg tw-space-y-3 hover:tw-bg-sky-500 hover:tw-ring-sky-500"
   >
     <div className="tw-flex tw-items-center tw-space-x-3">
       <FolderOpenIcon className=" tw-h-6 tw-w-6 tw-stroke-sky-500 group-hover:tw-stroke-white" />
@@ -26,11 +26,7 @@ function ProjectItem({ project }) {
         </li>
         <li className="tw-flex tw-justify-between tw-font-light tw-py-1 tw-border-b tw-border-slate-200 group-hover:tw-border-white">
           <p className="tw-capitalize">total issues</p>
-          <p>100</p>
-        </li>
-        <li className="tw-flex tw-justify-between tw-font-light tw-py-1 tw-border-b tw-border-slate-100 group-hover:tw-border-white last-of-type:tw-border-none">
-          <p className="tw-capitalize">assigned issues</p>
-          <p>10</p>
+          <p>{issue_count}</p>
         </li>
       </ul>
     </div>

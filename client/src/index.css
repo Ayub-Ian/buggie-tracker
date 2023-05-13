@@ -110,3 +110,7 @@ code {
   z-index: -100;
   border-radius: 4px 0 0 4px;
 }
+
+.project--details ul li:last-child {
+  border: none;
+}

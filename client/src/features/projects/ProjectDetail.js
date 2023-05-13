@@ -5,6 +5,7 @@ import Loader from "../../components/misc/Loader";
 import { Modal } from "../../components/misc/Modal";
 import client from "../../utils/network";
 import IssueList from "./IssueList";
+import { FaceFrownIcon } from "@heroicons/react/24/outline";
 
 function ProjectDetail() {
   let { id } = useParams();
@@ -164,8 +165,14 @@ function ProjectDetail() {
             </button>
           </div>
         </div>
-
-        <IssueList issues={project.issues} />
+        {project.issues.length === 0 ? (
+          <div className=" tw-flex tw-items-center tw-flex-col tw-space-y-14 tw-text-accent-gray center">
+            <FaceFrownIcon className=" tw-h-24 tw-w-24" />
+            <p className=" tw-text-4xl">No available issues</p>
+          </div>
+        ) : (
+          <IssueList issues={project.issues} />
+        )}
       </div>
 
       {showModal ? (
@@ -219,6 +226,9 @@ function ProjectDetail() {
                   value={formData.issue_steps}
                   onChange={handleChange}
                 />
+                <span className="tw-text-xs tw-text-slate-500">
+                  Separate steps with a comma i.e ,
+                </span>
               </div>
 
               <div className="tw-flex tw-flex-col tw-space-y-2 tw-w-full">

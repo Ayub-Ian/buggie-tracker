@@ -26,7 +26,7 @@ function AddComment({id, onAddComment}) {
     }
     
   return (
-    <div className=" tw-flex-shrink tw-flex-1 tw-overflow-hidden">
+    
     <form onSubmit={addComment} autoComplete='off'>
       <textarea
         className=" tw-bg-accent-smoke tw-w-full tw-py-1.5 tw-px-4 tw-rounded-lg tw-border tw-border-accent-primary tw-outline-none tw-border-none focus:tw-bg-white focus:tw-outline-1 focus:tw-outline-accent-orange "
@@ -41,7 +41,6 @@ function AddComment({id, onAddComment}) {
         value="Comment"
       />
     </form>
-  </div>
   )
 }
 

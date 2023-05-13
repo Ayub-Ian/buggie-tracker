@@ -4,13 +4,14 @@ class ProjectsController < ApplicationController
  
     # GET /projects 
     def index
-        projects = @current_user.projects
-        app_response(data: projects)
+        user_projects = @current_user.projects
+        all_projects = user_projects.as_json(methods: :issue_count)
+        render json: {data: all_projects}, status: :ok
     end
 
     # GET /projects/:id
     def show
-        render json: @project, include: :issues
+        render json: @project.as_json(include: :issues)
     end
 
     # POST /projects

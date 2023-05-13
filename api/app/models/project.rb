@@ -7,4 +7,10 @@ class Project < ApplicationRecord
     validates :description, presence: true
     validates :start_date, presence: true
 
+    def issue_count
+        self.issues.size
+    end
+
+  
+
 end

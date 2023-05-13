@@ -19,12 +19,13 @@ function Projects() {
     end_date: ""
   });
 
-  const allProducts = async () => {
+  const allProjects = async () => {
     setLoading(true);
     try {
       const response = await client.getAllProjects();
       setError(null);
       setProjects(response.data.data);
+      
     } catch (error) {
       setError(error.response.data);
     }
@@ -78,7 +79,7 @@ function Projects() {
   }
 
   useEffect(() => {
-    allProducts();
+    allProjects();
   }, []);
 
   let filteredProjects = projects && projects.filter(project => project.name.toLowerCase().includes(search.toLowerCase()))

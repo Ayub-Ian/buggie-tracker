@@ -57,8 +57,7 @@ const filteredIssues = issues && issues.filter(issue => issue.title.toLowerCase(
         <IssueList issues={filteredIssues}/>
       )}
       
-      <IssueList issues={filteredIssues}/>
-
+    
     </div>
   );
 }
